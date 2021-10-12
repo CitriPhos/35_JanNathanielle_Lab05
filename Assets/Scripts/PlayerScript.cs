@@ -7,6 +7,9 @@ public class PlayerScript : MonoBehaviour
     private float score;
     public Text scoreText;
 
+    private float elapsedTime = 20;
+    public Text timeText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +18,25 @@ public class PlayerScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    { 
+        // Display time
+        elapsedTime -= Time.deltaTime;
+
+        float minutes = Mathf.FloorToInt(elapsedTime / 60);
+        float seconds = Mathf.FloorToInt(elapsedTime % 60);
+        timeText.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
+
+        // Win condition
+        if (score >= 60)
+        {
+            SceneManager.LoadScene("GameWinScene");
+        }
+
+        // Lose condition
+        if (elapsedTime <= 0)
+        {
+            SceneManager.LoadScene("GameLoseScene");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
