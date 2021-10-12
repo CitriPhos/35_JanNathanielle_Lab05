@@ -10,6 +10,8 @@ public class PlayerScript : MonoBehaviour
     private float elapsedTime = 20;
     public Text timeText;
 
+    public GameObject particle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,7 @@ public class PlayerScript : MonoBehaviour
         {
             score += 10;
             Destroy(other.gameObject);
+            Instantiate(particle, other.gameObject.transform.position, Quaternion.identity);
             scoreText.text = $"Score: {score}";
         }
 
